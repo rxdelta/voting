@@ -42,4 +42,10 @@
 		$fullname.="$firstname $lastname";
                 return $fullname;   
 	}
+	
+	function my_session_start() {
+		if (!(isset($_SESSON) && isset($_SESSION['alive']))) {
+			session_start();
+		}
+	}
 ?>
