@@ -69,9 +69,11 @@ class candidate{
             if($result){
                 return true;
             }else{
+                $this->db->rollbackTransaction();
                 return false;
             } 
         }else{
+            $this->db->rollbackTransaction();
             return false;
         } 
     }
@@ -84,9 +86,11 @@ class candidate{
             if($result){
                 return true;
             }else{
+                $this->db->rollbackTransaction();
                 return false;
             } 
         }else{
+            $this->db->rollbackTransaction();
             return false;
         } 
     }

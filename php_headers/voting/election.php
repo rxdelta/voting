@@ -34,7 +34,7 @@ class election{
             }
         }
         
-        if(isset($data['candidate'])&&!empty($data['candidate'])){
+        if(isset($data['candidate'])&& count($data['candidate'])>0){
             $this->candidates=array();
             foreach($data['candidate'] as $var){
                 $tmp=new candidate($this->db,  $this->ID);
@@ -68,27 +68,31 @@ class election{
         return $this->data;
     }
     
-    function setVotes($added,$removed=null){
-        if(!is_null($removed) && !empty($removed)){
+    function setVotes($added,$removed){
+        if(!is_null($removed) && count($removed)>0){
             foreach ($removed as $key=>$var){
-                if(isset($this->data['candidates'][$key])){
-                    $this->data['candidates'][$key]->removeVote($var);
+                if(isset($this->candidates[$key])){
+                    if(!$this->candidates[$key]->removeVote($var))
+                        return false;
                 }
             }
         }
-        if(!empty($added)){
+        if(!is_null($added) && count($added)>0){
             foreach ($added as $key=>$var){
-                if(isset($this->data['candidates'][$key])){
-                    $this->data['candidates'][$key]->addVote($var);
+                if(isset($this->candidates[$key])){
+                    if(!$this->candidates[$key]->addVote($var))
+                        return false;
                 }
             }
         }
         
         $this->getElectionData();
+        
+        return true;
     }
     
     function getVotes(){
-        if(empty($this->votes)){
+        if(count($this->votes)==0){
             $this->getElectionData(); 
         }
         return $this->votes;
