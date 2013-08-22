@@ -96,6 +96,32 @@ INSERT INTO `user` (`ID`, `name`, `username`, `password`, `roll`) VALUES (0,'adm
 UNLOCK TABLES;
 
 --
+-- Table structure for table `userdata`
+--
+
+DROP TABLE IF EXISTS `userdata`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `userdata` (
+  `userID` int(11) NOT NULL,
+  `type` varchar(45) COLLATE utf8_persian_ci DEFAULT NULL,
+  `data` varchar(2000) COLLATE utf8_persian_ci DEFAULT NULL,
+  PRIMARY KEY (`userID`),
+  KEY `fk_userdata_1` (`userID`),
+  CONSTRAINT `fk_userdata_1` FOREIGN KEY (`userID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `userdata`
+--
+
+LOCK TABLES `userdata` WRITE;
+/*!40000 ALTER TABLE `userdata` DISABLE KEYS */;
+/*!40000 ALTER TABLE `userdata` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `uservote`
 --
 
@@ -164,4 +190,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-23  1:50:29
+-- Dump completed on 2013-08-23  2:02:50
