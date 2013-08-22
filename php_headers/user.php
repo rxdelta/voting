@@ -83,7 +83,7 @@ class user{
         if(!is_null($added) && count($added)>0){
             $query=array();
             foreach($added as $candidate=>$number){
-                $query[]='('.$this->session['ID'].', '.$election->ID.',"'.  md5($election->ID.$candidate.$this->session['password']).'", '.$number.')';
+                $query[]='('.$this->session['ID'].', '.$election->ID.',"'.  md5($election->ID.$candidate.$this->session['password']).'")';
             }
             $query='insert into uservote (userID,electionID,vote) values '.  implode(', ', $query);
             if(!$this->db->getQuery($query)){
