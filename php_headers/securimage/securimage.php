@@ -286,7 +286,7 @@ class Securimage
      * The character set to use for generating the captcha code
      * @var string
      */
-    public $charset        = '123456789';
+    public $charset        = '1234567890';
     /**
      * How long in seconds a captcha remains valid, after this time it will not be accepted
      * @var unknown_type
@@ -440,12 +440,13 @@ class Securimage
      * </code>
      */
     public $namespace;
-
+    
+    public $fonts_directory='/fonts/';
     /**
      * The font file to use to draw the captcha code, leave blank for default font AHGBold.ttf
      * @var string
      */
-    public $ttf_file;
+    public $ttf_file=null;
     /**
      * The path to the wordlist file to use, leave blank for default words/words.txt
      * @var string
@@ -650,9 +651,9 @@ class Securimage
         $this->signature_color = $this->initColor($this->signature_color, '#616161');
 
         if (is_null($this->ttf_file)) {
-            $this->ttf_file = $this->securimage_path . '/AHGBold.ttf';
+            $this->ttf_file = $this->getFontFromDirectory();
         }
-
+//        die ($this->ttf_file);
         $this->signature_font = $this->ttf_file;
 
         if (is_null($this->wordlist_file)) {
@@ -1108,6 +1109,28 @@ class Securimage
                          imagesx($newim), imagesy($newim));
     }
 
+    /**
+     * Scan the directory for a background image to use
+     */
+    protected function getFontFromDirectory()
+    {
+        $fonts = array();
+
+        if ( ($dh = opendir($this->securimage_path.$this->fonts_directory)) !== false) {
+            while (($file = readdir($dh)) !== false) {
+                if (preg_match('/(ttf)$/i', $file)) $fonts[] = $file;
+            }
+
+            closedir($dh);
+
+            if (sizeof($fonts) > 0) {
+                return rtrim($this->securimage_path.$this->fonts_directory, '/') . '/' . $fonts[mt_rand(0, sizeof($fonts)-1)];
+            }
+        }
+
+        return false;
+    }
+    
     /**
      * Scan the directory for a background image to use
      */
