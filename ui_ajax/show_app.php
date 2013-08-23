@@ -26,6 +26,9 @@
 	$rows=5;
 	$election = new election($db,$key);
 ?>
+<div id="show-time">
+	<?=convertTimeStampToShamsi($election->startTime, 3)?>
+</div>
 <div class="app-title">
 	<?=$election->description?>
 </div>
@@ -60,7 +63,7 @@
 							/>
 							<?=$elecItem[1]?>
 						</label>
-						<a href="#moreinfo<?=$elecItem[0]?>">(اطلاعات بیشتر)</a>
+						<a candidate_id="<?=$elecItem[0]?>" id="can<?=$elecItem[0]?>" class="election-candidate-moreinfo" >(شناخت بیشتر)</a>
 					</div>
 				<?php endif;?>
 				</td>
@@ -77,6 +80,11 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript">
+	    $(document).ready(function(e) {
+			reload_candidate();
+		});
+</script>
 <?php	else : ?>
 <span style="position:relative;margin-right:50px;top:10px;color:rgb(255,128,128);">هیچ کاندیدایی معرفی نشده است.</span>
 <?php	endif ?>
