@@ -74,6 +74,11 @@ input:hover , input:focus{
 	
 }
 
+#login-bar a {
+	text-decoration: none;
+	color: gold;
+}
+
 #top-content {
 	height:100%;
 	vertical-align:middle;
@@ -422,4 +427,13 @@ input:hover , input:focus{
 
 #index-items td {
 	background-color: rgb(80,80,80);
+}
+
+.message {
+}
+.messagefailed {
+	color:red;
+}
+.messagesuccess {
+	color.green;
 }

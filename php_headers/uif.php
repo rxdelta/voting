@@ -18,31 +18,9 @@
 <body>
 	<div id="top">
 		<div id="top-content">
-<?php
-	if (isset($_SESSION['uname'])) :
-?>
-			<div id="user-console">
-				<?= $_SESSION['uname'] ?>&nbsp;<a href="logout.php">(خروج)</a>
-			</div>
-<?php
-	else :
-?>
 			<div id="login-bar">
-				<form action="login.php" method="post">
-					<table cellspacing="0">
-						<tr>
-							<td> نام کاربری:</td>
-							<td> <input type="text" name="uname" /> </td>
-							<td> &nbsp;&nbsp;کلمه عبور: </td>
-							<td> <input type="password" name="password" /> </td>
-							<td> <button class="button" type="submit" style="margin-right:5px;"><span style="top: -3px; position: relative;">ورود</span></button> </td>
-						</tr>
-					</table>
-				</form>
-			</div>
-<?php
-	endif;
-?>			
+<?php	include_once 'ui_ajax/login.php'; ?>
+			</div>			
 		</div>
 		<a href="http://www.sampad.info/"><div id="logo"></div></a>
 	</div>
@@ -61,5 +39,25 @@
 	<?php
 	}
 	
+	function getContent() {
+		global $user;
+		global $db;
+		if ($user->status) {
+			
+			$userinfo = array(
+				array('u_name','نام',$user->name,'false'),
+				array('u_username','نام کاربری',$user->username,'true'),
+				array('u_username','شناسه عضویت','-','false'),
+				array('u_graddate','سال دانش‌آموختگی','-','false'),
+				array('u_grant','اعتبار عضویت','-','false')		
+			);
+			
+			$app = election::getAllElectionList($db);
+			showUserInfo($userinfo,$app);
+		} else {
+			showIndexPage();
+		}
+	
+	}
 	
 ?>

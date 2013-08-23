@@ -20,8 +20,8 @@ class candidate{
             $query='SELECT * FROM candidate WHERE ID='.$this->ID;
             $result=$this->db->getQuery($query);
             if($result){
-                $result=  $this->db->fetchArray($result);
-                $this->data=$result[0];
+                if ($result=  $this->db->fetchArray($result))
+					$this->data=$result[0];
             }
         }
     }

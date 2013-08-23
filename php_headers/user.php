@@ -20,7 +20,7 @@ class user{
     }
     
     function login($username,$password){
-        $username=mysqli_real_escape_string($username);
+        $username=mysql_real_escape_string($username);
         $query='select ID,roll from user where username="'.$username.'" and password="'.md5($username.$password).'";';
         $result=$this->db->getQuery($query);
         if($result){

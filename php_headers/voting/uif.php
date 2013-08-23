@@ -1,5 +1,27 @@
 <?php
-	
+	function getUserImage() {
+		global $user;
+		$f="";
+		if (
+			file_exists('../content/images/'.$user->ID.'.jpg') || 
+			file_exists('../../content/images/'.$user->ID.'.jpg') || 
+			file_exists('content/images/'.$user->ID.'.jpg') ) {
+				$f = $user->ID.'.jpg';
+		} else if (
+			file_exists('../content/images/'.$user->ID.'.jpeg') || 
+			file_exists('../../content/images/'.$user->ID.'.jpeg') || 
+			file_exists('content/images/'.$user->ID.'.jpeg') ) {
+				$f = $user->ID.'.jpeg';
+		} else if (
+			file_exists('../content/images/'.$user->ID.'.png') || 
+			file_exists('../../content/images/'.$user->ID.'.png') || 
+			file_exists('content/images/'.$user->ID.'.png') ) {
+				$f = $user->ID.'.png';
+		} else {
+			return "html_headers/images/no-profile-img.gif";
+		}
+		return "content/images/".$f;
+	}
 	function showUserInfo($info,$app) {
 ?>
 		<div id="userinfo">
@@ -9,14 +31,14 @@
 						<table>
 							<tr>
 								<td><img src="html_headers/images/user.png" /></td>
-								<td><span id="userinfo-title"> مصطفی نظری </span></td>
+								<td><span id="userinfo-title"> <?=$info[0][2]?> </span></td>
 							</tr>
 						</table>
 					</td>
 				</tr>
 				<tr >
 					<td width="200px" height="264px" >
-						<div id="userinfo-image" style="padding:10px 0px;"><img src="content/images/mostafa.jpg" width="180px" height="244px" style="margin:10px"/></div>
+						<div id="userinfo-image" style="padding:10px 0px;"><img src="<?=getUserImage()?>" width="180px" height="244px" style="margin:10px"/></div>
 					</td>
 					<td rowspan="2" valign="top">
 					

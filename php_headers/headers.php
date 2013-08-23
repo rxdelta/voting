@@ -9,6 +9,8 @@ include_once 'securimage/securimage.php';
 
 my_session_start();
 
+global $db;
 $db = new dblink($db['user'],$db['pass'],$db['dbname'],$db['host']);
+global $user;
 $user = new user($db);
 ?>

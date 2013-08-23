@@ -1,5 +1,4 @@
-//$(document).ready(function(e) {
-    $(document).ready(function(e) {
+	reload_all = function() {
 		$('.userinfo-item').attr('editiong','false');
 		$('.userinfo-item').hover(
 			function(){
@@ -86,6 +85,11 @@
 				);
 			}
 		});
+
+	}
+	
+	$(document).ready(function(e) {
+		reload_all();
     });
 	
 	reload_candidate = function() {
@@ -103,5 +107,4 @@
 				);
 		});
 	}
-//});
 	
