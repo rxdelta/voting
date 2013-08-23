@@ -1,4 +1,5 @@
 <?php
+	include_once '../php_headers/headers.php';
 	$key = $_GET['id'];
 	$elec =array(
 				array('1','مصطفی نظری','1'),
@@ -23,10 +24,10 @@
 				array('20','حامد بهادرزاده','1')
 	);
 	$rows=5;
-	
+	$election = new election($db,$key);
 ?>
 <div class="app-title">
-	چهارمین دوره انتخابات هیات مدیره <br/> انجمن دانش‌آموختگان استعدادهای درخشان
+	<?=$election->description?>
 </div>
 <?php 	if (isset($elec) && $elec != NULL && count($elec) > 0) :?>
 <div>

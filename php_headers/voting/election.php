@@ -102,7 +102,7 @@ class election{
 	function getData() { return $this->data; }
 	
 	function __get($name) {
-		if (isset($this->data) && isset($this->data['startTime'])) return ($this->data['startTime']);
+		if (isset($this->data) && isset($this->data[$name])) return ($this->data[$name]);
 		else
 		return null;
 	}
@@ -110,18 +110,21 @@ class election{
 	function getTimeDeltaTime() {
 		$q = "SELECT current_timestamp - `startTime` as `toStart`,  `endTime` - current_timestamp  as `toEnd`  FROM `election` WHERE ID=".$this->ID;
 		$result = $db->getQuery($q);
-		return $result;	
+		$result=$db->fetchArray($result);
+		return $result[0];	
 	}
 	
 	static function getAllElectionList($db) {
-		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted = NULL";
+		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted IS NULL";
 		$result = $db->getQuery($q);
+		$result=$db->fetchArray($result);
 		return $result;
 	}
 	
 	static function getValidElectionList($db) {
-		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted = NULL AND `startTime` > current_timestamp AND  `endTime` > current_timestamp";
+		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted IS NULL AND `startTime` > current_timestamp AND  `endTime` > current_timestamp";
 		$result = $db->getQuery($q);
+		$result=$db->fetchArray($result);
 		return $result;		
 	}
 	

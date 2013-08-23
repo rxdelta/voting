@@ -20,7 +20,6 @@ class dblink{
     function connect($username,$password,$host,$port){
         $result=mysql_connect($host.":".$port, $username, $password);
         if($result){
-			echo "mysql".$result;
             $this->link=$result;
             $this->set_pre_settings();
             return true;
@@ -50,7 +49,6 @@ class dblink{
     }
     
     function getQuery($query){
-		echo "mydebug".$query;
         $result=mysql_query($query, $this->link);
         if($result){
             return $result;
@@ -77,6 +75,7 @@ class dblink{
         }
         return $arrayResult;
     }
+	
     
     function insertId()
     {

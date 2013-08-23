@@ -44,8 +44,9 @@
 	}
 	
 	function my_session_start() {
-		if (!(isset($_SESSON) && isset($_SESSION['alive']))) {
+		if (!(isset($_SESSION) && isset($_SESSION['alive']))) {
 			session_start();
+			$_SESSION['alive']=true;
 		}
 	}
 	

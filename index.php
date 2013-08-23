@@ -12,11 +12,7 @@
 		array('u_grant','اعتبار عضویت','یک سال','false')		
 	);
 	
-	$app = election::getValidElectionList($db);
-	foreach ($app as $item) {
-		$resDesc = str_replace("<br/>"," - ",$item[1]);
-		$res[1] = $resDesc;
-	}
+	$app = election::getAllElectionList($db);
 	showUserInfo($user,$app);
 	
 	getFooter();

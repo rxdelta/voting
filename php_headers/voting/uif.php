@@ -41,18 +41,18 @@
 										if ($itemIndex < count($app))
 											$appItem = $app[$itemIndex];
 										else
-											$appItem = array('none','none');
+											$appItem = array('ID' =>'none','name'=>'none');
 							?>
 								<td width="<?=$w?>px" height="<?=$h?>px" style="padding-bottom:<?=$sp?>px;padding-top:<?=$sp?>px;">
 									<div 
-										id="appshortcut<?=$appItem[0]?>"
+										id="appshortcut<?=$appItem['ID']?>"
 										index="<?=$itemIndex?>"
-										appid="<?=$appItem[0]?>" 
-										class="<?=$appItem[0]=='none'?'no-app':'app'?>" 
-										<?php if ($appItem[0]!='none') : ?>
-										style="background-image: url('app/image/<?=$appItem[0]?>.png');" 
+										appid="<?=$appItem['ID']?>" 
+										class="<?=$appItem['ID']=='none'?'no-app':'app'?>" 
+										<?php if ($appItem['ID']!='none') : ?>
+										style="background-image: url('app/image/<?=$appItem['ID']?>.png');" 
 										<?php endif;?>
-										title="<?=$appItem[1]?>" 
+										title="<?=$appItem['name']?>" 
 									>
 									</div>
 								</td>
