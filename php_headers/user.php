@@ -2,6 +2,7 @@
 class user{
     private $db;
     private $ID=0;
+    private $data=array();
     private $session=array();
     public $status=false;
     private $candidates=array();
@@ -14,6 +15,7 @@ class user{
         }
         if(isset($this->session['ID'])){
             $this->ID=$this->session['ID'];
+            $this->getUserData();
         }
     }
     
@@ -31,6 +33,7 @@ class user{
                     $this->session['password']=$password;
                     $this->session['status']=true;
                     $this->status=  $this->session['status'];
+                    $this->getUserData();
                     $this->saveSession();
                     return true;
                 }
@@ -42,6 +45,7 @@ class user{
     
     function logout(){
         $this->session=array();
+        $this->data=array();
         $this->status=false;
         $this->saveSession();
     }
@@ -113,13 +117,118 @@ class user{
         return true;
     }
     
-    function setUserData($data){
-        if($this->ID > 0){
-            foreach($data as $key=>$var){
-                return $this->updateUserData($key,$var);
+    private function updateUserData($key,$var){
+        $type=mysql_real_escape_string($key);
+        if($type!='password'){
+            $data=mysql_real_escape_string($var);
+            $query='insert into userdata values('.$this->ID.',"'.$type.'","'.$data.'") on duplicate key update data="'.$data.'";';
+            if($this->db->getQuery($query)){
+                return true;
+            }else{
+                return false;
             }
         }else{
-            return $this->createUser($data);
+            $oldpass=mysql_real_escape_string($var['oldpass']);
+            $newpass=mysql_real_escape_string($var['newpass']);
+            $query='select updatepass ('.$this->ID.',"'.$oldpass.'","'.$newpass.'");';
+            $result=$this->db->getQuery($query);
+            if($result){
+                $result=$this->db->fetchArray();
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+            
+    private function createUser($userData){
+        if(!isset($userData['username'])){
+            return false;
+        }else{
+            $username=  mysql_real_escape_string($userData['username']);
+            unset($userData['username']);
+        }
+        
+        if(!isset($userData['password'])){
+            return false;
+        }else{
+            $password=$userData['password'];
+            unset($userData['password']);
+        }
+        
+        $name=isset($userData['name'])? mysql_real_escape_string($userData['name']):'';
+        if(!isset($userData['name'])){unset($userData['name']);}
+        
+        $roll=(isset($userData['roll'])&&$userData['roll']=='admin')? 'admin':'user';
+        if(!isset($userData['roll'])){unset($userData['roll']);}
+        
+        $query='insert into user (name,username,password,roll) values ("'.$name.'","'.$username.'","'.  md5($username.$password).'","'.$roll.'")';
+        if($this->db->getQuery($query)){
+            $this->ID=$this->db->insertId();
+        }else{
+            return false;
+        }
+        
+        foreach($userData as $key=>$var){
+            $data=mysql_real_escape_string($var);
+            $type=mysql_real_escape_string($key);
+            $query='insert into userdata values('.$this->ID.',"'.$type.'","'.$data.'") on duplicate key update data="'.$data.'";';
+            if(!$this->db->getQuery($query)){
+                return false;
+            }
+        }
+    }
+    
+    function setUserData($data,$ID){
+        $this->db->startTransaction();
+        $ID=($this->ID > 0)?$this->ID:(((int)$ID)>0?(int)$ID:0);
+        if($ID > 0){
+            foreach($data as $key=>$var){
+                if(!$this->updateUserData($key,$var)){
+                    $this->db->rollbackTransaction();
+                    return false;
+                }
+            }
+        }else{
+            if(!$this->createUser($data)){
+                $this->db->rollbackTransaction();
+                return false;
+            }
+        }
+        
+        $this->db->commitTransaction();
+        return true;
+    }
+    
+    
+    function getUserData(){
+        if($this->ID>0){
+            $query='select ID,name,username,roll from user where ID ='.$this->ID;
+            $result=$this->db->getQuery($query);
+            $result=$this->db->fetchArray($result);
+            $data=$result[0];
+            
+            $query='select * from userdata where userID='.$this->ID;
+            $result=$this->db->getQuery($query);
+            $result=$this->db->fetchArray($result);
+            foreach ($result as $value) {
+                $data[$value['type']]=$value['data'];
+            }
+            
+            $this->data=$data;
+        }
+    }
+    
+    function __get($name){
+        if(count($this->data)>0 && isset($this->data[$name])){
+            return $this->data[$name];
+        }else if(count($this->data)==0){
+            $this->getUserData();
+            if(isset($this->data[$name])){
+                return $this->data[$name];
+            }
+        }else{
+            return null;
         }
     }
 }
