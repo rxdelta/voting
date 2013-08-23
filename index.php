@@ -1,4 +1,5 @@
 <?php
+	include_once "php_headers/headers.php";
 	include_once "php_headers/uif.php";
 	include_once "php_headers/voting/uif.php";
 	getHeader('صفحه اصلی');
@@ -11,10 +12,11 @@
 		array('u_grant','اعتبار عضویت','یک سال','false')		
 	);
 	
-	$app = array(
-		array('1','انتخابات هیئت مدیره انجمن'),
-		array('2','انتخابات بازرس هیئت مدیره انجمن'),
-	);
+	$app = election::getValidElectionList($db);
+	foreach ($app as $item) {
+		$resDesc = str_replace("<br/>"," - ",$item[1]);
+		$res[1] = $resDesc;
+	}
 	showUserInfo($user,$app);
 	
 	getFooter();

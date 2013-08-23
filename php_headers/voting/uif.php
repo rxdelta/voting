@@ -6,7 +6,12 @@
 			<table id="userinfo-maintable" cellspacing="3px" width="100%">
 				<tr>
 					<td colspan="2" height="50px">
-						<span id="userinfo-title"> مصطفی نظری </span>
+						<table>
+							<tr>
+								<td><img src="html_headers/images/user.png" /></td>
+								<td><span id="userinfo-title"> مصطفی نظری </span></td>
+							</tr>
+						</table>
 					</td>
 				</tr>
 				<tr >
