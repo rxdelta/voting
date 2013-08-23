@@ -257,7 +257,7 @@ function convertToJalali($gdate, $BetweenChar=" ", $Mod=1) {
     $month = Array("فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند");
     if ($jmonth < 10)
 	$jmonth = '0' . $jmonth;
-    if ($jday < 10)
+    if ($jday < 10 && $Mod!=1)
 	$jday = '0' . $jday;
     if ($Mod == 1)
 	$sq = $jday . $BetweenChar . $month[--$jmonth] . $BetweenChar . $jyear;
@@ -280,12 +280,16 @@ function convertTimeStampToShamsi($date, $mode=0) {
 
     $splitTime = explode(":", $splitDateTime[1]);
     $jDate = convertToJalali($splitDateTime[0], '/', 3);
+    $jDate2 = convertToJalali($splitDateTime[0], ' ', 1);
     if ($mode == 0)
                   return $jDate;
     else if ($mode == 1)
-	return $jDate . " " . $splitTime[0] . ":" . $splitTime[1];
+		return $jDate . " " . $splitTime[0] . ":" . $splitTime[1];
     else if ($mode == 2)
-	return $jDate . " " . $splitTime[0] . ":" . $splitTime[1] . ":" . $splitTime[2];
+		return $jDate . " " . $splitTime[0] . ":" . $splitTime[1] . ":" . $splitTime[2];
+    else if ($mode == 3)
+		return $jDate2 . " ساعت " . $splitTime[0] . ":" . $splitTime[1];
+	
 }
 
 ?>

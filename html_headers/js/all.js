@@ -88,5 +88,20 @@
 		});
     });
 	
+	reload_candidate = function() {
+		$('.election-candidate-moreinfo').click( function() {
+			var key=$(this).attr('candidate_id');
+			var id='#show-candidate';
+			$.ajax('ui_ajax/show_candidate.php?id='+key).done(
+					function(response){
+						if(response!=''){
+							$(id).fadeOut(400, function() {$(id).html(response).fadeIn(400);});
+						} else {
+							$(id).html("دریافت اطلاعات ناموفق بود");
+						}
+					}
+				);
+		});
+	}
 //});
 	

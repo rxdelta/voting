@@ -33,7 +33,7 @@
 						<tr>
 							<td> نام کاربری:</td>
 							<td> <input type="text" name="uname" /> </td>
-							<td> کلمه عبور: </td>
+							<td> &nbsp;&nbsp;کلمه عبور: </td>
 							<td> <input type="password" name="password" /> </td>
 							<td> <button class="button" type="submit" style="margin-right:5px;"><span style="top: -3px; position: relative;">ورود</span></button> </td>
 						</tr>
