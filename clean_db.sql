@@ -107,6 +107,7 @@ CREATE TABLE `userdata` (
   `type` varchar(45) COLLATE utf8_persian_ci DEFAULT NULL,
   `data` varchar(2000) COLLATE utf8_persian_ci DEFAULT NULL,
   PRIMARY KEY (`userID`),
+  UNIQUE KEY `unique` (`userID`,`type`),
   KEY `fk_userdata_1` (`userID`),
   CONSTRAINT `fk_userdata_1` FOREIGN KEY (`userID`) REFERENCES `user` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_persian_ci;
@@ -190,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-08-23  2:02:50
+-- Dump completed on 2013-08-23  9:56:26

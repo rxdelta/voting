@@ -1,6 +1,7 @@
 <?php
 class user{
     private $db;
+    private $ID=0;
     private $session=array();
     public $status=false;
     private $candidates=array();
@@ -10,6 +11,9 @@ class user{
         $this->session=$_SESSION;
         if(isset($this->session['status'])){
             $this->status=  $this->session['status'];
+        }
+        if(isset($this->session['ID'])){
+            $this->ID=$this->session['ID'];
         }
     }
     
@@ -21,7 +25,8 @@ class user{
             $result=$this->db->fetchArray($result);
             if($result){
                 if($result[0]['ID']>0){
-                    $this->session['ID']=$result[0]['ID'];
+                    $this->ID=$result[0]['ID'];
+                    $this->session['ID']=$this->ID;
                     $this->session['roll']=$result[0]['roll'];
                     $this->session['password']=$password;
                     $this->session['status']=true;
@@ -106,6 +111,16 @@ class user{
         
         $this->db->commitTransaction();
         return true;
+    }
+    
+    function setUserData($data){
+        if($this->ID > 0){
+            foreach($data as $key=>$var){
+                return $this->updateUserData($key,$var);
+            }
+        }else{
+            return $this->createUser($data);
+        }
     }
 }
 ?>
