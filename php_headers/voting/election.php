@@ -11,6 +11,7 @@ class election{
         $this->db=$db;
         if((int)$ID!=0){
             $this->ID=(int)$ID;
+			$this->getElectionData();
         }
     }
     
@@ -97,6 +98,34 @@ class election{
         }
         return $this->votes;
     }
+	
+	function getData() { return $this->data; }
+	
+	function __get($name) {
+		if (isset($this->data) && isset($this->data['startTime'])) return ($this->data['startTime']);
+		else
+		return null;
+	}
+	
+	function getTimeDeltaTime() {
+		$q = "SELECT current_timestamp - `startTime` as `toStart`,  `endTime` - current_timestamp  as `toEnd`  FROM `election` WHERE ID=".$this->ID;
+		$result = $db->getQuery($q);
+		return $result;	
+	}
+	
+	static function getAllElectionList($db) {
+		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted = NULL";
+		$result = $db->getQuery($q);
+		return $result;
+	}
+	
+	static function getValidElectionList($db) {
+		$q = "SELECT `ID`,`name` FROM `election` WHERE deleted = NULL AND `startTime` > current_timestamp AND  `endTime` > current_timestamp";
+		$result = $db->getQuery($q);
+		return $result;		
+	}
+	
+	
 }
 
 ?>

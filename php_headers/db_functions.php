@@ -1,6 +1,6 @@
 <?php
 
-class link{
+class dblink{
     private $link;
     private $preSetting=array(
             "SET NAMES utf8 collate utf8_persian_ci",
@@ -11,14 +11,16 @@ class link{
         //    "SET SESSION time_zone = 'Asia/Tehran'"
         );
     
-    public function __construct($username,$password,$host="127.0.0.1",$port="3306") {
+    public function __construct($username,$password,$dbname,$host="127.0.0.1",$port="3306") {
         $this->connect($username,$password,$host,$port);
+		$this->setDB($dbname);
         return $this->link;
     }
     
     function connect($username,$password,$host,$port){
         $result=mysql_connect($host.":".$port, $username, $password);
         if($result){
+			echo "mysql".$result;
             $this->link=$result;
             $this->set_pre_settings();
             return true;
@@ -48,6 +50,7 @@ class link{
     }
     
     function getQuery($query){
+		echo "mydebug".$query;
         $result=mysql_query($query, $this->link);
         if($result){
             return $result;

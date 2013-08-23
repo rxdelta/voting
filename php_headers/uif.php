@@ -13,7 +13,7 @@
     <link href="html_headers/css/style.css" rel="stylesheet" />
     <script src="html_headers/jquery-1.9.1.min.js"></script>
     <script src="html_headers/jquery-ui.min.js"></script>
-    <!--script src="html_headers/js/all.js" type="text/javascript"></script-->
+    <script src="html_headers/js/all.js" type="text/javascript"></script>
 </head>
 <body>
 	<div id="top">
@@ -35,7 +35,7 @@
 							<td> <input type="text" name="uname" /> </td>
 							<td> کلمه عبور: </td>
 							<td> <input type="password" name="password" /> </td>
-							<td> <button class="button" type="submit" style="margin-right:5px;"><span style="top: -3px; position: relative;">ورود</span></input> </td>
+							<td> <button class="button" type="submit" style="margin-right:5px;"><span style="top: -3px; position: relative;">ورود</span></button> </td>
 						</tr>
 					</table>
 				</form>
@@ -44,7 +44,7 @@
 	endif;
 ?>			
 		</div>
-		<div id="logo"></div>
+		<a href="http://www.sampad.info/"><div id="logo"></div></a>
 	</div>
 	<div id="content">
 <?php
@@ -54,7 +54,7 @@
 	?>
 	</div>
 	<div id="bottom">
-		Copyright© 2013 by Sampad Comunity - all rights reseved
+		Copyright© 2013 by <a href="www.sampad.info">Sampad Comunity</a>. all rights reseved<br/>designed by <a href="mailto:me@mnazari.ir">rxdelta</a> & <a href="mailto:h.bahadorzadeh@gmail.com">hbx</a>
 	</div>
 </body>
 </html>
