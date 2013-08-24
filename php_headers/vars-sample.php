@@ -8,14 +8,14 @@
 	$fieldregxp['gradyear']='^0|7[3-9]|8[0-9]|90$';
 	
         
-	$smspanel['username']='sampad';
+	$smspanel['username']='';
 	$smspanel['password']='';
-	$smspanel['number']='30007654321765';
+	$smspanel['number']='';
         
                 
-	$db['user']="root";
-	$db['pass']="mysqlroot";
-	$db['dbname']="voting";
-	$db['host']="localhost";
+	$db['user']="";
+	$db['pass']="";
+	$db['dbname']="";
+	$db['host']="";
             
 ?>
