@@ -84,6 +84,8 @@ class user{
     }
     
     function setVotes($election,$votes){
+        if(!$election->timeValidation())
+            return false;
         $this->db->startTransaction();
         $added=isset($votes['added'])?$votes['added']:null;
         $removed=isset($votes['removed'])?$votes['removed']:null;

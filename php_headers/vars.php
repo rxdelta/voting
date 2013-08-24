@@ -16,6 +16,6 @@
 	$db['user']="root";
 	$db['pass']="mysqlroot";
 	$db['dbname']="voting";
-	$db['host']="192.168.1.20";
+	$db['host']="localhost";
             
 ?>

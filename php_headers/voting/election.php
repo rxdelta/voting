@@ -107,6 +107,18 @@ class election{
 		return null;
 	}
 	
+        function timeValidation(){
+            $query='select true from election where (current_timestamp between startTime and endTime) and ID ='.$this->ID;
+            $result=$this->db->getQuery($query);
+            if($result){
+                $result=$this->db->fetchArray($result);
+                if($result and count($result)>0){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
 	function getTimeDeltaTime() {
 		$q = "SELECT current_timestamp - `startTime` as `toStart`,  `endTime` - current_timestamp  as `toEnd`  FROM `election` WHERE ID=".$this->ID;
 		$result = $db->getQuery($q);
