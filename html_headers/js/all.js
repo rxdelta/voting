@@ -1,3 +1,4 @@
+	
 	reload_all = function() {
 		$('.userinfo-item').attr('editiong','false');
 		$('.userinfo-item').hover(
@@ -58,31 +59,42 @@
 		);
 		
 		$('.app').click( function() {
-			var rows=5;
+			var rows=4;
 			var index=parseInt($(this).attr('index'));
 			var id="#app_show"+Math.floor(index / rows);
+			var id2="#app_inside"+Math.floor(index / rows);
+			
 			var key=$(this).attr('appid');
 			
 			if (($(this).hasClass('app-selected'))) {
 				//this tab was opened, so close app
 				$('.app-selected').removeClass('app-selected');
-				$(id).html('');
+				$(id2).html('');
 			} else {
 				//close and open new tab
-				$('.app-show').html('');
+				var v=this;
+				$(id2).css('opacity','0');
 				$('.app-selected').removeClass('app-selected');
 				$(id).addClass('app-selected');
-				$(this).addClass("app-selected");
+				$(v).addClass("app-selected");
 				
-				$.ajax('ui_ajax/show_app.php?id='+key).done(
-					function(response){
-						if(response!=''){
-							window.setTimeout(function() {$(id).html(response);},400);
-						} else {
-							$(id).html("دریافت اطلاعات ناموفق بود");
-						}
-					}
-				);
+				window.setTimeout(function() {
+					$('.app-inside').html('');
+					$.ajax('ui_ajax/show_app.php?id='+key).done(
+								function(response){
+									$(id2).css('opacity','1');
+									if(response!=''){
+										$(id2).html(response);
+									} else {
+										$(id2).html("دریافت اطلاعات ناموفق بود");
+									}
+								}
+							);
+					
+				},400);
+					
+				
+				
 			}
 		});
 
@@ -90,6 +102,8 @@
 	
 	$(document).ready(function(e) {
 		reload_all();
+		reload_candidate();
+		$(this).parents('div.election-item').addClass('election-checked');
     });
 	
 	reload_candidate = function() {
@@ -105,6 +119,26 @@
 						}
 					}
 				);
+		});
+		$('.candidate-checkbox').click( function() {
+			var cCount = $('.candidate-checkbox:checked').length;
+			if ( cCount > maxElection) {
+				if (maxElection == 1) {
+					$('.candidate-checkbox:checked').parents('div.election-item').removeClass('election-checked');
+					$('.candidate-checkbox:checked').removeAttr('checked');
+					this.checked = true;
+					$(this).parents('div.election-item').addClass('election-checked');
+				} else {
+					alert('انتخاب بیشتر از '+maxElection+' کاندیدا در این انتخابات مجاز نیست');
+					$(this).removeAttr('checked');
+				}
+			} else {
+				if ( this.checked ) {
+					$(this).parents('div.election-item').addClass('election-checked');
+				} else {
+					$(this).parents('div.election-item').removeClass('election-checked');				
+				}
+			}
 		});
 	}
 	

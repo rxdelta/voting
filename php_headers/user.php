@@ -58,8 +58,8 @@ class user{
     function getVotes($election){
         $electionID=$election->ID;
         $votesResult=array();
-        if(electionID>0){
-            $query='select vote from uservote where userID='.$this->session['ID'].' electionID='.$electionID.';';
+        if($electionID>0){
+            $query='select vote from uservote where userID='.$this->session['ID'].' AND electionID='.$electionID.';';
             $result=  $this->db->getQuery($query);
             $votes=  $this->db->fetchArray($result);
             if(count($votes)>0){
