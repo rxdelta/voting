@@ -7,9 +7,9 @@
 	if ($user->status == true) {
 		$message = "";
 	} else {
-		if (isset($_GET['username']) && isset($_GET['password'])) {
-			$username = $_GET['username'];
-			$password = $_GET['password'];
+		if (isset($_POST['username']) && isset($_POST['password'])) {
+			$username = $_POST['username'];
+			$password = $_POST['password'];
 			
 			if ($user->login($username, $password)) {
 				$status="success";
@@ -69,7 +69,7 @@
 							var u = $('#username').val();
 							var p = $('#password').val();
 							var id='#login-bar';
-							$.ajax('ui_ajax/login.php?username='+encodeURIComponent(u)+'&password='+encodeURIComponent(p)).done(
+							$.ajax('ui_ajax/login.php',{type:'POST',data:'username='+encodeURIComponent(u)+'&password='+encodeURIComponent(p)}).done(
 									function(response){
 										if(response!=''){
 											$(id).fadeOut(400, function() {$(id).html(response).fadeIn(400);});
