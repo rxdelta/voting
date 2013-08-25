@@ -353,6 +353,7 @@ input:hover , input:focus{
 }
 #candidates {
 	font-size: 12pt;
+	padding-right:10px;
 }
 .election-item {
 	-webkit-transition: all 0.4s ease;
@@ -395,12 +396,14 @@ input:hover , input:focus{
 }
 
 #show-time {
-	position:absolute;
+	/* position:absolute; */
 	left:0px;
 	top:0px;
 	width:200px;
 	text-align:center;
 	font-size: 12pt;
+	padding-right:70%;
+	line-height:120%;
 }
 
 .index-item {
