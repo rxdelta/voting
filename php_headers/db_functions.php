@@ -7,8 +7,8 @@ class dblink{
             "SET CHARACTER SET utf8",
             "SET character_set_client = utf8",
             "SET character_set_results = utf8",
-            "SET character_set_connection = utf8"//,
-        //    "SET SESSION time_zone = 'Asia/Tehran'"
+            "SET character_set_connection = utf8",
+            "SET SESSION time_zone = 'Asia/Tehran'"
         );
     
     public function __construct($username,$password,$dbname,$host="127.0.0.1",$port="3306") {
