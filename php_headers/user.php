@@ -87,8 +87,21 @@ class user{
         if(!$election->timeValidation())
             return false;
         $this->db->startTransaction();
-        $added=isset($votes['added'])?$votes['added']:null;
-        $removed=isset($votes['removed'])?$votes['removed']:null;
+	$pastVotes=%this->getVotes();
+	$added=array();
+	$removed=array();
+	foreach($votes as $vote){
+		if(!in_array($vote,$pastVotes)){
+			$added[$vote]=1;
+		}
+	}
+	
+	foreach($pastVotes as $vote){
+		if(!in_array($vote,$votes){
+			$removed[$vote]=1;
+		}
+	}
+
         if(!$election->setVotes($added,$removed))
                 return false;
         if(!is_null($added) && count($added)>0){
