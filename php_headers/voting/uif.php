@@ -40,19 +40,11 @@
 					<td width="200px" height="264px" >
 						<div id="userinfo-image" style="padding:10px 0px;"><img src="<?=getUserImage()?>" width="180px" height="244px" style="margin:10px"/></div>
 					</td>
-					<td rowspan="2" valign="top">
-					
-						<!--span class="itemtitle" style="position:relative;top:10px;">درباره‌ی من</span>
-						<hr/-->
-				<!--tr>
-					<td height="208px" >
-						<div id="userinfo-desc"></div>
-					</td>
-				</tr-->
+					<td rowspan="2" valign="top">					
 					<?php 	if (isset($app) && $app != NULL && count($app) > 0) :?>
 						<table cellspacing="0px" cellpadding="0px" border="0px">
 							<?php 
-								$rows=5; //value reference is also in all.js:$('.app').click
+								$rows=4; //value reference is also in all.js:$('.app').click
 								$w=120;
 								$h=60;
 								$sp=2;
@@ -80,7 +72,9 @@
 								</td>
 							<?php 		if ($i==0) : ?>
 								<td width="4px" height="<?=(($h+2*$sp)*$rows-2*$sp)?>px" rowspan="5" style="padding-bottom:<?=$sp+1?>px;padding-top:<?=$sp+1?>px;">
-									<div id="app_show<?=$j?>" class="app-show" style="padding:<?=$sp?>px;"></div>
+									<div id="app_show<?=$j?>" class="app-show" style="padding:<?=$sp?>px;">
+										<div class="app-inside" id="app_inside<?=$j?>"></div>
+									</div>
 								</td>
 							<?php 		endif; 
 									endfor;
@@ -149,7 +143,7 @@
 							</div>
 							<div class="index-item-content">
 								انتخابات هیئت مدیره انجمن دانش‌آموختگان استعدادهای درخشان (سمپاد یزد) هر دوسال یک بار در مجمع عمومی انجمن و با شرکت اعضای آن برگزار می‌گردد.
-								<a href="http://www.sampad.info"> (بیشتر درباره انجمن سمپاد بدانید...) </a>
+								<a target="_blank" href="http://www.sampad.info"> (بیشتر درباره انجمن سمپاد بدانید...) </a>
 							</div>
 						</div>
 					</td>
@@ -169,8 +163,8 @@
 								رای دهند. انتخابات به دو صورت حضوری (در محل پارک علم و فناوری یزد)
 								و اینترنتی (در این پایگاه وب) برگزار گردیده و هردو همزمان پایان می‌یابند.
 								شرایط انتخابات انجمن سمپاد را در
-								<a href="http://news.sampad.info/article253.html">اینجا</a> و 
-								<a href="http://news.sampad.info/article254.html">اینجا</a> ببینید.<br/>
+								<a target="_blank" href="http://news.sampad.info/article253.html">اینجا</a> و 
+								<a target="_blank" href="http://news.sampad.info/article254.html">اینجا</a> ببینید.<br/>
 								داوطلبان شرکت در انتخابات به صورت <u>اینترنتی</u> پس از دریافت نام کاربری و کلمه عبور خود از مدیریت انجمن
 								می‌توانند با ورود به این سیستم در زمان اعتبار انتخابات، آرای خود را وارد نمایند.
 								<u>
@@ -189,8 +183,8 @@
 							<div class="index-item-content">
 								پایگاه وب انتخابات انجمن سمپاد برای سهولت فرآیند برگزاری انتخابات انجمن و به همت جمعی از دانش‌آموختگان
 								این انجمن طراحی شده و برای اولین بار در چهارمین دوره انتخابات هیئت مدیره و بازرسین انجمن سمپاد بهره‌برداری می‌شود.
-								از این سامانه می‌توان رای برگزاری تمامی انتخابات انجمن (اعم از انتخاب اعضا مانند انتخابات هیئت مدیره و یا رای گیری از اعضای سمپاد در زمینه‌های مختلف) بهره برد.<br/>
-								از مزایای این پایگاه وب، ثبت آرای افراد به صورت امن است، به نحوی که تنها اطلاعات تجمعی قابل بازیابی بوده و رای افراد برای شخص رای دهنده محفوظ خواهد بود
+								از این سامانه می‌توان در برگزاری تمامی انتخابات انجمن (اعم از انتخاب اعضا مانند انتخابات هیئت مدیره و یا رای گیری از اعضای سمپاد در زمینه‌های مختلف) بهره برد.<br/>
+								مهمترین مزیت این پایگاه وب، ثبت آرای افراد به صورت امن است، به نحوی که تنها اطلاعات تجمعی قابل بازیابی بوده و رای افراد برای شخص رای دهنده محفوظ خواهد بود.
 							</div>
 						</div>
 					</td>

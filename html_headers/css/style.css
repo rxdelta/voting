@@ -69,9 +69,9 @@ input:hover , input:focus{
 
 #login-bar {
 	vertical-align:middle;
-	margin-top:10px;
-	margin-right:10px;
-	
+	margin-top:15px;
+	margin-right:20px;
+	font-size: 10pt;
 }
 
 #login-bar a {
@@ -80,10 +80,10 @@ input:hover , input:focus{
 }
 
 #top-content {
-	height:100%;
-	vertical-align:middle;
-	margin-top:auto;
-	margin-bottom:auto;
+	position:absolute;
+	top:0;
+	height:50px;
+	width:100%;
 }
 
 .button {
@@ -333,7 +333,15 @@ input:hover , input:focus{
 	font-size: 14pt;
 }
 
-
+.app-inside {
+	position:relative;
+	height:100%;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;	
+	font-size: 14pt;
+}
 
 .app-title {
 	border-bottom: 2px solid gold;
@@ -345,11 +353,19 @@ input:hover , input:focus{
 #candidates {
 	font-size: 12pt;
 }
-
+.election-item {
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
 .election-item > a {
 	text-decoration: none;
 	color: gold;
 	cursor:pointer;
+}
+.election-checked {
+	background-color: rgb(180,80,180);
 }
 #submit-candidate {
 	padding:3px;
@@ -381,8 +397,9 @@ input:hover , input:focus{
 	position:absolute;
 	left:0px;
 	top:0px;
-	width:300px;
+	width:200px;
 	text-align:center;
+	font-size: 12pt;
 }
 
 .index-item {
@@ -429,11 +446,29 @@ input:hover , input:focus{
 	background-color: rgb(80,80,80);
 }
 
+.message-div {
+	position:absolute;
+	top:0px;
+	right:300px;
+	width:500px;
+	padding:0px;
+	margin:0px;
+	padding-top:15px;
+	padding-right:10px;
+	padding-left:10px;
+	height:35px;
+	background-color: black;
+	font-family:tahoma;
+}
 .message {
+	font-size:10pt;
+	font-weight: bold;
+	background-color: black;
+	color: white;
 }
 .messagefailed {
-	color:red;
+	background-color:red;
 }
 .messagesuccess {
-	color.green;
+	color:lightgreen;
 }

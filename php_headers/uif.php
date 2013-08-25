@@ -20,9 +20,12 @@
 		<div id="top-content">
 			<div id="login-bar">
 <?php	include_once 'ui_ajax/login.php'; ?>
-			</div>			
+			</div>	
+			<?php if (isset($_GET['status']) && isset($_GET['msg'])) : ?>
+				<div class="message-div<?=" message".$_GET['status']?>"><span class="message<?=" message".$_GET['status']?>" id="login-info"> <?=$_GET['msg']?> </span></div>
+			<?php endif; ?>
 		</div>
-		<a href="http://www.sampad.info/"><div id="logo"></div></a>
+		<a target="_blank" href="http://www.sampad.info/"><div id="logo"></div></a>
 	</div>
 	<div id="content">
 <?php
@@ -32,7 +35,8 @@
 	?>
 	</div>
 	<div id="bottom">
-		Copyright© 2013 by <a href="www.sampad.info">Sampad Comunity</a>. all rights reseved<br/>designed by <a href="mailto:me@mnazari.ir">rxdelta</a> & <a href="mailto:h.bahadorzadeh@gmail.com">hbx</a>
+		Copyright© 2013 by <a target="_blank" href="http://www.sampad.info/">Sampad Comunity</a>. all rights reseved<br/>
+		designed by <a target="_blank" href="mailto:me@mnazari.ir">rxdelta</a> & <a target="_blank" href="mailto:h.bahadorzadeh@gmail.com">hbx</a>
 	</div>
 </body>
 </html>

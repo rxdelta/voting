@@ -12,10 +12,7 @@
 	$smspanel['password']='';
 	$smspanel['number']='';
         
-                
 	$db['user']="";
 	$db['pass']="";
 	$db['dbname']="";
 	$db['host']="";
-            
-?>

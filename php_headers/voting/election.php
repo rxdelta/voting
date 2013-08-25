@@ -2,9 +2,9 @@
 
 class election{
     private $db;
-    private $ID=0;
+    public $ID=0;
     private $votes=array();
-    private $candidates=array();
+    public $candidates=array();
     private $data=array();
             
     function election($db,$ID=0){
@@ -48,24 +48,24 @@ class election{
         if($this->ID!=0){
             $query="SELECT * FROM election where ID =".$this->ID;
             $result=$this->db->getQuery($query);
-            if($result){
-                $result=$this->db->fetchArray($result);
+            if($result && ($result=$this->db->fetchArray($result))){
+                
                 $this->data=$result[0];
+
+				$query="SELECT * FROM vote where electionID =".$this->ID;
+				$result=$this->db->getQuery($query);
+				
+				if($result && ($result=$this->db->fetchArray($result))){
+					foreach ($result as $var) {
+						$this->candidates[$var['candidateID']]=new candidate($this->db, $this->ID, $var['candidateID']);
+						$this->data['candidates'][$var['candidateID']]=$this->candidates[$var['candidateID']]->getData();
+						$this->votes[$this->data['candidates'][$var['candidateID']]['name']]=$var['vote'];
+					}
+				}				
+            } else {
+				$this->data = false;
             }
-            
-            $query="SELECT * FROM vote where electionID =".$this->ID;
-            $result=$this->db->getQuery($query);
-            if($result){
-                $result=$this->db->fetchArray($result);
-                foreach ($result as $var) {
-                    $this->candidates[$var['candidateID']]=new candidate($var['candidateID']);
-                    $this->data['candidates'][$var['candidateID']]=$this->candidates[$var['candidateID']]->getData();
-                    $this->votes[$this->data['candidates'][$var['candidateID']]['name']]=$result['vote'];
-                }
-            }
-                      
         }
-        
         return $this->data;
     }
     
@@ -102,6 +102,8 @@ class election{
 	function getData() { return $this->data; }
 	
 	function __get($name) {
+		if ($name == 'ID') return $this->ID;
+		else
 		if (isset($this->data) && isset($this->data[$name])) return ($this->data[$name]);
 		else
 		return null;

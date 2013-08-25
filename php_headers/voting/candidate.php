@@ -5,6 +5,14 @@ class candidate{
     private $ID=0;
     private $electionID;
     private $data=false;
+	
+	function __get($name) {
+		if ($name == 'ID') return $this->ID;
+		else
+		if (isset($this->data) && isset($this->data[$name])) return ($this->data[$name]);
+		else
+		return null;
+	}
             
     function candidate($db,$electionID,$candidateID=null){
         $this->db=$db;
