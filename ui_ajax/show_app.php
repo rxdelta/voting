@@ -54,9 +54,9 @@
 <?php 	if (isset($elec) && $elec != NULL && count($elec) > 0) :?>
 <div>
 	لطفا 
-	<span style='color:red'><u>
+	<span style='color:red'>
 		<?=$alphanum[$election->electingNumber]?>
-	</u> </span>
+	</span>
 	مورد از کاندیدهای مورد نظر خود را انتخاب کنید
 </div>
 <div id="candidates">
