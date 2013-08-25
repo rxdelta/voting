@@ -89,7 +89,7 @@ class candidate{
     function removeVote($number=1){
         $number=(int)$number;
         if($number!=0){
-            $queyr='update `vote` set `vote`=`vote`-'.$number.' where electionID='.$this->electionID.' and candidateID='.$this->ID;
+            $query='update `vote` set `vote`=`vote`-'.$number.' where electionID='.$this->electionID.' and candidateID='.$this->ID;
             $result=$this->db->getQuery($query);
             if($result){
                 return true;

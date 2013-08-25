@@ -38,8 +38,8 @@
 		foreach ($election->candidates as $candidate) {
 			if (!isset($uservote[$candidate->ID])) {
 				$uservote[$candidate->ID] = 0;
-				$elec[] = array($candidate->ID, $candidate->name, $uservote[$candidate->ID]); 
 			}
+			$elec[] = array($candidate->ID, $candidate->name, $uservote[$candidate->ID]); 
 			
 		}
 	
@@ -56,7 +56,7 @@
 	لطفا 
 	<span style='color:red'><u>
 		<?=$alphanum[$election->electingNumber]?>
-	</u></span>
+	</u> </span>
 	مورد از کاندیدهای مورد نظر خود را انتخاب کنید
 </div>
 <div id="candidates">

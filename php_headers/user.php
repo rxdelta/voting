@@ -84,10 +84,11 @@ class user{
     }
     
     function setVotes($election,$votes){
+
         if(!$election->timeValidation())
             return false;
         $this->db->startTransaction();
-	$pastVotes=%this->getVotes();
+	$pastVotes=$this->getVotes($election);
 	$added=array();
 	$removed=array();
 	foreach($votes as $vote){
@@ -95,13 +96,11 @@ class user{
 			$added[$vote]=1;
 		}
 	}
-	
-	foreach($pastVotes as $vote){
-		if(!in_array($vote,$votes){
+	foreach($pastVotes as $key=>$vote){
+		if(!in_array($vote,$votes)){
 			$removed[$vote]=1;
 		}
 	}
-
         if(!$election->setVotes($added,$removed))
                 return false;
         if(!is_null($added) && count($added)>0){
@@ -119,7 +118,7 @@ class user{
         if(!is_null($removed) && count($removed)>0){
             $query=array();
             foreach($removed as $candidate=>$number){
-                $query[]='(vote ='.md5($election->ID.$candidate.$this->session['password']).')';
+                $query[]='(vote ="'.md5($election->ID.$candidate.$this->session['password']).'")';
             }
             $query='delete from uservote where '.  implode(' or ', $query);
             if(!$this->db->getQuery($query)){

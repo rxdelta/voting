@@ -73,8 +73,9 @@ class election{
         if(!is_null($removed) && count($removed)>0){
             foreach ($removed as $key=>$var){
                 if(isset($this->candidates[$key])){
-                    if(!$this->candidates[$key]->removeVote($var))
+                    if(!$this->candidates[$key]->removeVote($var)){
                         return false;
+		    }
                 }
             }
         }
