@@ -10,8 +10,22 @@ class candidate{
 		if ($name == 'ID') return $this->ID;
 		else
 		if (isset($this->data) && isset($this->data[$name])) return ($this->data[$name]);
-		else
-		return null;
+		else {
+			$q = "SELECT `data` FROM `candidatedata` WHERE `CandidateID`=".$this->ID." AND `type`='".$name."'";
+			if ( ($result = $this->db->getQuery($q)) && ($result = $this->db->fetchArray($result))) {
+				return $result['data'];
+			} else
+				return null;
+		}
+	}
+	
+	function getAttributeList() {
+		$q = "SELECT `type`, `data` FROM `candidatedata` WHERE `CandidateID`=".$this->ID;
+		if ($result = $this->db->getQuery($q)) {
+			$array = $this->db->fetchArray($result);
+			return $array;
+		} else
+			return null;
 	}
             
     function candidate($db,$electionID,$candidateID=null){

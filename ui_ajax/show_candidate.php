@@ -39,9 +39,25 @@
 ?>
 							<table width="100%">
 								<tr>
-									<td width="200px" rowspan="2">
+									<td width="200px" rowspan="2" valign="top">
 										<div id="userinfo-image" style="padding:10px 0px;"><img src="<?=getCandidateImage($c->ID)?>" width="180px" height="244px" style="margin:10px"/></div>
-									</td>
+											<table cellspacing="0px" width="100%">
+										
+											<?php
+												$attr = $c->getAttributeList();
+												foreach($attr as $item) :
+													?>
+												<tr><td>
+													<div class="userinfo-item" title="<?=$item['data']?>" id="<?=$item['type']?>">
+														<span class="userinfo-item-title"><?=$item['type']?>:</span>
+														<span class="userinfo-item-value"><?=$item['data']?></span>
+														<div class="userinfo-item-edit" style="display: none; opacity: 0.5;" title="ویرایش"></div>
+														<div class="userinfo-item-submit" style="display: none; opacity: 0.5;" title="ذخیره"></div>
+													</div>
+												</td></tr>
+											<?php endforeach; ?>
+											</table>
+										</td>
 									<td height="60px">
 										<div id="candidate-name"><?=$c->name?></div>
 									</td>

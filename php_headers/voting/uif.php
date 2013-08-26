@@ -1,4 +1,9 @@
 <?php
+	if (file_exists('../headers.php'))
+		include_once '../headers.php';
+	global $db;
+	global $user;
+	
 	function getUserImage() {
 		global $user;
 		$f="";
@@ -23,6 +28,7 @@
 		return "content/images/".$f;
 	}
 	function showUserInfo($info,$app) {
+		global $db;
 ?>
 		<div id="userinfo">
 			<table id="userinfo-maintable" cellspacing="3px" width="100%">
@@ -52,8 +58,10 @@
 									echo '<tr>';
 									for ($j=0;$j < (int)((count($app)-1) / $rows)+1; $j++) :
 										$itemIndex = $j*$rows + $i;
-										if ($itemIndex < count($app))
+										if ($itemIndex < count($app)) {
 											$appItem = $app[$itemIndex];
+											$election = new election($db,$appItem['ID']);
+										}
 										else
 											$appItem = array('ID' =>'none','name'=>'none');
 							?>
@@ -62,7 +70,7 @@
 										id="appshortcut<?=$appItem['ID']?>"
 										index="<?=$itemIndex?>"
 										appid="<?=$appItem['ID']?>" 
-										class="<?=$appItem['ID']=='none'?'no-app':'app'?>" 
+										class="<?=($appItem['ID']=='none'?'no-app':'app').(isset($election)&&$election->timeValidation()?' activated-dis':'')?>" 
 										<?php if ($appItem['ID']!='none') : ?>
 										style="background-image: url('app/image/<?=$appItem['ID']?>.png');" 
 										<?php endif;?>

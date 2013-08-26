@@ -84,7 +84,6 @@ class user{
     }
     
     function setVotes($election,$votes){
-
         if (!$election->electionStarted())
             return 1;
 		else if ($election->electionFinished())

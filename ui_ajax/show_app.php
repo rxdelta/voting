@@ -46,11 +46,13 @@
 ?>
 <div id="show-time">
 	<table cellspacing="0px" cellpadding="0px" style="float:left">
+		<?php if (!$election->timeValidation()) : ?>
 		<tr><td><span style="color:gold;">زمان شروع:</span></td><td><span style="background-color: rgb(120,20,120);"><?=convertTimeStampToShamsi($election->startTime, 3)?></span></td></tr>
+		<?php endif;?>
 		<tr><td><span style="color:gold;">زمان پایان:</span></td><td><span style="background-color: rgb(120,20,120);"><?=convertTimeStampToShamsi($election->endTime, 3)?></span></td></tr>
 	</table>
 </div>
-<div class="app-title">
+<div class="app-title<?=($election->timeValidation())? " app-title-active":""?>">
 	<?=$election->description?>
 </div>
 <?php 	if (isset($elec) && $elec != NULL && count($elec) > 0) :?>
@@ -82,7 +84,7 @@
 								name="candidate[]" 
 								value="<?=$elecItem[0]?>"
 								<?php if ($elecItem[2]=='1') : ?>checked = "checked"<?php endif; ?>
-								<?=($election->timeValidation())?'' :'disabled ="disabled"' ?>
+								<?=(($election->timeValidation())?'' :'disabled ="disabled"') ?>
 							/><?=$elecItem[1]?></label>
 						<a candidate_id="<?=$elecItem[0]?>" id="can<?=$elecItem[0]?>" class="election-candidate-moreinfo" >(شناخت بیشتر)</a>
 					</div>

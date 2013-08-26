@@ -1,5 +1,6 @@
 <?php
 	include_once 'php_headers/headers.php';
+	//print_r($_POST);
 	global $db;
 	global $user;
 	$status="";
@@ -12,8 +13,12 @@
 		$msg = 'شما شرایط برگزاری انتخابات را نپذیرفته‌اید';
 	} 
 	else 
-	if (isset($_POST['electionID']) && isset($_POST['candidate'])) {
-		$votes = $_POST['candidate'];
+	if (isset($_POST['electionID'])) {
+	
+		if (isset($_POST['candidate']))
+			$votes = $_POST['candidate'];
+		else
+			$votes = array();
 		$election = new election($db, $electionID);
 		if (count($votes) > $election->electingNumber) {
 			$status='failed';
@@ -52,6 +57,6 @@
 		if (isset($electionID)) $param['appid']=$electionID;
 	$param['status']=$status;
 	$param['msg']=$msg;
-	
+	//echo http_build_query($param);
 	header('Location: index.php?'.http_build_query($param));
 ?>
