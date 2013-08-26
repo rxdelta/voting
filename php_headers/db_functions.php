@@ -13,7 +13,7 @@ class dblink{
     public function __construct($username,$password,$dbname,$host="127.0.0.1",$port="3306") {
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 		} else {
-			$this->preSetting[]="SET SESSION time_zone = 'Asia/Tehran'";
+		//	$this->preSetting[]="SET SESSION time_zone = 'Asia/Tehran'";
 		}  
         $this->connect($username,$password,$host,$port);
 		$this->setDB($dbname);

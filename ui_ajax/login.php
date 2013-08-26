@@ -26,7 +26,63 @@
 	
 	if ($user->status == true) :
 ?>
+				<div id="top-security"></div>
+				<div id="edit-password">
+					<table cellspacing="2px" cellpadding="2px">
+						<tr>
+							<td>کلمه عبور پیشین:</td>
+							<td><input type="password" name="oldpassword" id="oldpassword" /></td>
+						</tr>
+						<tr>
+							<td>کلمه عبور جدید:</td>
+							<td><input type="password" name="newpassword" id="newpassword" /></td>
+						</tr>
+						<tr>
+							<td>تکرار کلمه عبور:</td>
+							<td><input type="password" name="repassword" id="repassword" /></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td align="left"><button class="button" type="submit" style="margin-right:5px;" id="changepassword"><span style="top: -3px; position: relative;">اعمال تغییرات</span></button></td>
+						</tr>
+					</table>
+				</div>
 				<span><?=$user->name?></span> خوش آمدید. &nbsp;<a href="logout.php">(خروج از سیستم)</a>
+				<script type="text/javascript">
+					$(document).ready(function(e) {
+						$('#top-security').click( function() {
+							if ($('#top-security').hasClass('select')) {
+								$('#top-security').removeClass('select');
+								$('#edit-password').fadeOut(400);
+							} else {
+								$('#top-security').addClass('select');
+								$('#edit-password').fadeIn(400);
+							}
+						});
+						$('#changepassword').click( function() {
+							var oldp = $('#oldpassword').val();
+							var newp = $('#newpassword').val();
+							var confirm = $('#repassword').val();
+							if (newp == '') {
+								alert('کلمه عبور نمی‌تواند خالی باشد');
+							} else if (newp !== confirm) {
+								alert('کلمه عبور جدید با تکرار آن مغایر است');
+							} else {
+								$.ajax('ui_ajax/changepassword.php',{type:'POST',data:'old='+encodeURIComponent(oldp)+'&new='+encodeURIComponent(newp)}).done(
+									function(response){
+										if(response!=''){
+											alert(response);
+											$('#top-security').removeClass('select');
+											$('#edit-password').fadeOut(400);
+										} else {
+											alert("دریافت اطلاعات ناموفق بود");
+										}
+									}
+								);
+							}
+						});
+					});
+				</script>
 <?php			if (file_exists('../php_headers/headers.php')) : ?>
 					<script type="text/javascript">
 						//$(document).ready(function(e) {
