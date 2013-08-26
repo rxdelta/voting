@@ -140,5 +140,6 @@
 				}
 			}
 		});
+		$('.candidate-checkbox:checked').parents('div.election-item').addClass('election-checked');
 	}
 	

@@ -85,50 +85,54 @@ class user{
     
     function setVotes($election,$votes){
 
-        if(!$election->timeValidation())
-            return false;
+        if (!$election->electionStarted())
+            return 1;
+		else if ($election->electionFinished())
+			return 2;
+			
         $this->db->startTransaction();
-	$pastVotes=$this->getVotes($election);
-	$added=array();
-	$removed=array();
-	foreach($votes as $vote){
-		if(!in_array($vote,$pastVotes)){
-			$added[$vote]=1;
+		
+		$pastVotes=$this->getVotes($election);
+		$added=array();
+		$removed=array();
+		foreach($votes as $vote){
+			if(!in_array($vote,$pastVotes)){
+				$added[$vote]=1;
+			}
 		}
-	}
-	foreach($pastVotes as $key=>$vote){
-		if(!in_array($vote,$votes)){
-			$removed[$vote]=1;
+		foreach($pastVotes as $key=>$vote){
+			if(!in_array($vote,$votes)){
+				$removed[$vote]=1;
+			}
 		}
-	}
-        if(!$election->setVotes($added,$removed))
-                return false;
-        if(!is_null($added) && count($added)>0){
-            $query=array();
-            foreach($added as $candidate=>$number){
-                $query[]='('.$this->session['ID'].', '.$election->ID.',"'.  md5($election->ID.$candidate.$this->session['password']).'")';
-            }
-            $query='insert into uservote (userID,electionID,vote) values '.  implode(', ', $query);
-            if(!$this->db->getQuery($query)){
-                $this->db->rollbackTransaction();
-                return false;
-            }
-        }
-        
-        if(!is_null($removed) && count($removed)>0){
-            $query=array();
-            foreach($removed as $candidate=>$number){
-                $query[]='(vote ="'.md5($election->ID.$candidate.$this->session['password']).'")';
-            }
-            $query='delete from uservote where '.  implode(' or ', $query);
-            if(!$this->db->getQuery($query)){
-                $this->db->rollbackTransaction();
-                return false;
-            }
-        }
-        
-        $this->db->commitTransaction();
-        return true;
+			if(!$election->setVotes($added,$removed))
+					return 3;
+			if(!is_null($added) && count($added)>0){
+				$query=array();
+				foreach($added as $candidate=>$number){
+					$query[]='('.$this->session['ID'].', '.$election->ID.',"'.  md5($election->ID.$candidate.$this->session['password']).'")';
+				}
+				$query='insert into uservote (userID,electionID,vote) values '.  implode(', ', $query);
+				if(!$this->db->getQuery($query)){
+					$this->db->rollbackTransaction();
+					return 4;
+				}
+			}
+			
+			if(!is_null($removed) && count($removed)>0){
+				$query=array();
+				foreach($removed as $candidate=>$number){
+					$query[]='(vote ="'.md5($election->ID.$candidate.$this->session['password']).'")';
+				}
+				$query='delete from uservote where '.  implode(' or ', $query);
+				if(!$this->db->getQuery($query)){
+					$this->db->rollbackTransaction();
+					return 5;
+				}
+			}
+			
+			$this->db->commitTransaction();
+			return 0;
     }
     
     private function updateUserData($key,$var){

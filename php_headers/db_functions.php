@@ -7,11 +7,14 @@ class dblink{
             "SET CHARACTER SET utf8",
             "SET character_set_client = utf8",
             "SET character_set_results = utf8",
-            "SET character_set_connection = utf8",
-            "SET SESSION time_zone = 'Asia/Tehran'"
+            "SET character_set_connection = utf8"
         );
     
     public function __construct($username,$password,$dbname,$host="127.0.0.1",$port="3306") {
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		} else {
+			$this->preSetting[]="SET SESSION time_zone = 'Asia/Tehran'";
+		}  
         $this->connect($username,$password,$host,$port);
 		$this->setDB($dbname);
         return $this->link;

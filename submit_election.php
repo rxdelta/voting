@@ -19,18 +19,39 @@
 			$status='failed';
 			$msg = 'شما تنها مجاز به انتخاب '.$election->electingNumber.' کاندیدا هستید';
 		} else {
-			if ($user->setVotes($election,$votes)) {
-				$status='success';
-				$msg = 'تعداد '.count($votes).' رای برای '.$election->name.' از طرف شما ثبت شد';
-				//check if new election available
-				$e2 = new election($db, $electionID+1);
-				if ($e2->getData()) $electionID++;
-			} else {
-				$status='failed';	
-				$msg = 'عملیات با شکست مواجه شد';			
+			$v = $user->setVotes($election,$votes);
+			switch ($v) {
+				case 0:
+					$status='success';
+					$msg = 'تعداد '.count($votes).' رای برای '.$election->name.' از طرف شما ثبت شد';
+					//check if new election available
+					$e2 = new election($db, $electionID+1);
+					if ($e2->getData()) $electionID++;
+					break;
+				case 1:
+					$status='failed';
+					$msg= 'انتخابات هنوز شروع نشده است';
+					break;
+				case 2:
+					$status='failed';
+					$msg= 'مهلت انتخابات تمام شده است';
+					break;
+				default:
+					$status='failed';	
+					$msg = 'عملیات با شکست مواجه شد';			
 			}
+			if ($status == 'failed')
+				$msg = '('.$v.') '.$msg;			
 		}
 
+	} else {
+		$status='failed';	
+		$msg = 'تغییرات قابل اعمال نیست';			
 	}
-	header('Location: index.php?'.(isset($electionID)?'appid='.$electionID.'&':'').'status='.$status.'&msg='.$msg);
+	$param = array();
+		if (isset($electionID)) $param['appid']=$electionID;
+	$param['status']=$status;
+	$param['msg']=$msg;
+	
+	header('Location: index.php?'.http_build_query($param));
 ?>

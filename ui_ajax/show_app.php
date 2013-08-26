@@ -3,7 +3,7 @@
 	global $db;
 	global $user;
 	$key = 0;
-	$rows=3;
+	$rows=4;
 	$alphanum = array (
 		0 => 'صفر',
 		1 => 'یک',
@@ -45,35 +45,33 @@
 	
 ?>
 <div id="show-time">
-	<span style="color:gold;">زمان شروع:</span><br/>
-	<span style="background-color: rgb(120,20,120);"><?=convertTimeStampToShamsi($election->startTime, 3)?></span>
+	<table cellspacing="0px" cellpadding="0px" style="float:left">
+		<tr><td><span style="color:gold;">زمان شروع:</span></td><td><span style="background-color: rgb(120,20,120);"><?=convertTimeStampToShamsi($election->startTime, 3)?></span></td></tr>
+		<tr><td><span style="color:gold;">زمان پایان:</span></td><td><span style="background-color: rgb(120,20,120);"><?=convertTimeStampToShamsi($election->endTime, 3)?></span></td></tr>
+	</table>
 </div>
 <div class="app-title">
 	<?=$election->description?>
 </div>
 <?php 	if (isset($elec) && $elec != NULL && count($elec) > 0) :?>
-<div>
-	لطفا 
-	<span style='color:red'>
-		<?=$alphanum[$election->electingNumber]?>
-	</span>
-	مورد از کاندیدهای مورد نظر خود را انتخاب کنید
-</div>
+<div>لطفا حداکثر <span style='color:red'><?=$alphanum[$election->electingNumber]?></span> مورد از کاندیدهای مورد نظر خود را انتخاب کنید</div>
 <div id="candidates">
 	<form method="post" action="submit_election.php">
 		<input type="hidden" name="electionID" value="<?=$key?>" />
 		<table cellspacing="0px" cellpadding="2px" border="0px">
-			<?php 
+			<?php
+				$cols = (int)((count($elec)-1) / $rows)+1; 
+				$ew = 100 / $cols;
 				for($i=0;$i<$rows;$i++) :
 					echo '<tr>';
-					for ($j=0;$j < (int)((count($elec)-1) / $rows)+1; $j++) :
+					for ($j=0;$j < $cols; $j++) :
 						$itemIndex = $j*$rows + $i;
 						if ($itemIndex < count($elec))
 							$elecItem = $elec[$itemIndex];
 						else
 							$elecItem = array('none','none');
 			?>
-				<td>
+				<td width="<?=$ew?>%">
 				<?php if ($elecItem[0]!='none') : ?>
 					<div class="election-item" title="<?=$elecItem[1]?>">
 						<label>
@@ -84,9 +82,8 @@
 								name="candidate[]" 
 								value="<?=$elecItem[0]?>"
 								<?php if ($elecItem[2]=='1') : ?>checked = "checked"<?php endif; ?>
-							/>
-							<?=$elecItem[1]?>
-						</label>
+								<?=($election->timeValidation())?'' :'disabled ="disabled"' ?>
+							/><?=$elecItem[1]?></label>
 						<a candidate_id="<?=$elecItem[0]?>" id="can<?=$elecItem[0]?>" class="election-candidate-moreinfo" >(شناخت بیشتر)</a>
 					</div>
 				<?php endif;?>
@@ -105,8 +102,8 @@
 	</form>
 </div>
 <script type="text/javascript">
-		reload_candidate();
 		var maxElection=<?=$election->electingNumber?>;
+		reload_candidate();
 </script>
 <?php	else : ?>
 <span style="position:relative;margin-right:50px;top:10px;color:rgb(255,128,128);">هیچ کاندیدایی معرفی نشده است.</span>

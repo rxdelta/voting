@@ -19,10 +19,11 @@ body{
 	margin:0;
 	padding:0;
 	text-align:right;
-	font-size: 70%;
+	font-size: 8pt;
 	direction:rtl;
 	/*background-image: url('../images/sampad-tiny-watermark.png');*/
 	background-color: rgb(40,40,40);
+	min-width:1280px;
 }
 
 input{
@@ -45,7 +46,7 @@ input:hover , input:focus{
     right:0;
     width:100%;
 	height: 50px;
-    z-index: 100;
+    z-index: 9;
 	border-bottom:3px solid gold;
 }
 
@@ -73,6 +74,7 @@ input:hover , input:focus{
 	margin-top:15px;
 	margin-right:20px;
 	font-size: 10pt;
+	z-index: 10;
 }
 
 #login-bar a {
@@ -112,8 +114,8 @@ input:hover , input:focus{
 	position: fixed;
     color:black;
 	background-color: gold;
-    bottom:0;
-    right:0;
+    bottom:0px;
+    right:0px;
     width:100%;
 	height: 30px;
     z-index: 100;
@@ -124,6 +126,7 @@ input:hover , input:focus{
 	-o-transition: all 0.4s ease;
 	transition: all 0.4s ease;
 	border-top: 3px solid gold;
+	font-size:8pt;
 }
 
 #bottom > a {
@@ -396,14 +399,14 @@ input:hover , input:focus{
 }
 
 #show-time {
-	/* position:absolute; */
+	position:absolute;
 	left:0px;
 	top:0px;
-	width:200px;
+	width:270px;
 	text-align:center;
 	font-size: 12pt;
 	padding-right:70%;
-	line-height:120%;
+	/* line-height:120%; */
 }
 
 .index-item {
