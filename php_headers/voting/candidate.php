@@ -10,8 +10,22 @@ class candidate{
 		if ($name == 'ID') return $this->ID;
 		else
 		if (isset($this->data) && isset($this->data[$name])) return ($this->data[$name]);
-		else
-		return null;
+		else {
+			$q = "SELECT `data` FROM `candidatedata` WHERE `CandidateID`=".$this->ID." AND `type`='".$name."'";
+			if ( ($result = $this->db->getQuery($q)) && ($result = $this->db->fetchArray($result))) {
+				return $result['data'];
+			} else
+				return null;
+		}
+	}
+	
+	function getAttributeList() {
+		$q = "SELECT `type`, `data` FROM `candidatedata` WHERE `CandidateID`=".$this->ID;
+		if ($result = $this->db->getQuery($q)) {
+			$array = $this->db->fetchArray($result);
+			return $array;
+		} else
+			return null;
 	}
             
     function candidate($db,$electionID,$candidateID=null){
@@ -89,7 +103,7 @@ class candidate{
     function removeVote($number=1){
         $number=(int)$number;
         if($number!=0){
-            $queyr='update `vote` set `vote`=`vote`-'.$number.' where electionID='.$this->electionID.' and candidateID='.$this->ID;
+            $query='update `vote` set `vote`=`vote`-'.$number.' where electionID='.$this->electionID.' and candidateID='.$this->ID;
             $result=$this->db->getQuery($query);
             if($result){
                 return true;

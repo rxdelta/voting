@@ -103,7 +103,7 @@
 	$(document).ready(function(e) {
 		reload_all();
 		reload_candidate();
-		$(this).parents('div.election-item').addClass('election-checked');
+		//$(this).parents('div.election-item').addClass('election-checked');
     });
 	
 	reload_candidate = function() {
@@ -140,5 +140,6 @@
 				}
 			}
 		});
+		$('.candidate-checkbox:checked').parents('div.election-item').addClass('election-checked');
 	}
 	

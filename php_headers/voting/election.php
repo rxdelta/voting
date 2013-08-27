@@ -73,8 +73,9 @@ class election{
         if(!is_null($removed) && count($removed)>0){
             foreach ($removed as $key=>$var){
                 if(isset($this->candidates[$key])){
-                    if(!$this->candidates[$key]->removeVote($var))
+                    if(!$this->candidates[$key]->removeVote($var)){
                         return false;
+		    }
                 }
             }
         }
@@ -109,18 +110,42 @@ class election{
 		return null;
 	}
 	
-        function timeValidation(){
-            $query='select true from election where (current_timestamp between startTime and endTime) and ID ='.$this->ID;
-            $result=$this->db->getQuery($query);
-            if($result){
-                $result=$this->db->fetchArray($result);
-                if($result and count($result)>0){
-                    return true;
-                }
-            }
-            return false;
-        }
-        
+	function timeValidation(){
+		$query='select true from election where (current_timestamp between startTime and endTime) and ID ='.$this->ID;
+		$result=$this->db->getQuery($query);
+		if($result){
+			$result=$this->db->fetchArray($result);
+			if($result and count($result)>0){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function electionStarted(){
+		$query='select true from election where (current_timestamp > startTime) and ID ='.$this->ID;
+		$result=$this->db->getQuery($query);
+		if($result){
+			$result=$this->db->fetchArray($result);
+			if($result and count($result)>0){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function electionFinished(){
+		$query='select true from election where (current_timestamp > endTime) and ID ='.$this->ID;
+		$result=$this->db->getQuery($query);
+		if($result){
+			$result=$this->db->fetchArray($result);
+			if($result and count($result)>0){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	function getTimeDeltaTime() {
 		$q = "SELECT current_timestamp - `startTime` as `toStart`,  `endTime` - current_timestamp  as `toEnd`  FROM `election` WHERE ID=".$this->ID;
 		$result = $db->getQuery($q);

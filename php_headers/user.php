@@ -246,5 +246,8 @@ class user{
             return null;
         }
     }
+    function isOldPasswordEquals($pass) {
+        return ($this->session['password'] == $pass);
+    }
 }
 ?>

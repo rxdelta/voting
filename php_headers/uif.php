@@ -35,7 +35,7 @@
 	?>
 	</div>
 	<div id="bottom">
-		Copyright© 2013 by <a target="_blank" href="http://www.sampad.info/">Sampad Comunity</a>. all rights reseved<br/>
+		Copyright© 2013 by <a target="_blank" href="http://www.sampad.info/">Sampad Community</a>. all rights reseved<br/>
 		designed by <a target="_blank" href="mailto:me@mnazari.ir">rxdelta</a> & <a target="_blank" href="mailto:h.bahadorzadeh@gmail.com">hbx</a>
 	</div>
 </body>
