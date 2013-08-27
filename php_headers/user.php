@@ -87,7 +87,7 @@ class user{
         if(!$election->timeValidation())
             return false;
         $this->db->startTransaction();
-	$pastVotes=%this->getVotes();
+	$pastVotes=$this->getVotes();
 	$added=array();
 	$removed=array();
 	foreach($votes as $vote){
