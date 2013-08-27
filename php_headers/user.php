@@ -24,7 +24,7 @@ class user{
         $query='select ID,roll from user where username="'.$username.'" and password="'.md5($username.$password).'";';
         $result=$this->db->getQuery($query);
         if($result){
-            $result=$this->db->fetchArray($result);
+           $result=$this->db->fetchArray($result);
             if($result){
                 if($result[0]['ID']>0){
                     $this->ID=$result[0]['ID'];
@@ -97,7 +97,7 @@ class user{
 	}
 	
 	foreach($pastVotes as $vote){
-		if(!in_array($vote,$votes){
+		if(!in_array($vote,$votes)){
 			$removed[$vote]=1;
 		}
 	}
