@@ -3,7 +3,7 @@ Voting
 
 Hidden voting system that originally made for SAMPAD commiunity. 
 
-No one, even who is access to DB can not know who vote whom.
+No one, even who has access to DB can not know who vote whom.
 
 
 INSTALL
